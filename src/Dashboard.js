@@ -41,9 +41,14 @@ const useStyles = makeStyles(theme => ({
 export function Dashboard() {
     const classes = useStyles();
 
+    const [allChats] = React.useContext(CTX);
+
+    const topics = Object.keys(allChats);
+
+    const [activeTopic, changeActiveTopic] = React.useState(topics[0]);
     const [textValue, changeTextValue] = React.useState('');
 
-    const [allChats] = React.useContext(CTX);
+    console.log(allChats);
 
     return (
         <div>
@@ -52,23 +57,23 @@ export function Dashboard() {
                     Chat app
                 </Typography>
                 <Typography variant="h5" component="h5">
-                    Topic placeholder
+                    {activeTopic}
                 </Typography>
                 <div className={classes.flex}>
                     <div className={classes.topicsWindow}>
                         <List>
-                            {['Test'].map(topic => (
-                                <ListItem key={topic} button>
-                                    <ListItemText primary="topic" />
+                            {topics.map(topic => (
+                                <ListItem onClick={e => changeActiveTopic(e.target.innerText)} key={topic} button>
+                                    <ListItemText primary={topic} />
                                 </ListItem>
                             ))}
                         </List>
                     </div>
                     <div className={classes.chatWindow}>
-                        {[{from: 'user', msg: 'hello'}].map((chat, index) => (
+                        {allChats[activeTopic].map((chat, index) => (
                             <div className={classes.flex} key={index}>
                                 <Chip label={chat.from} className={classes.chip} />
-                                <Typography variant='p'>{chat.msg}</Typography>
+                                <Typography variant='body1' gutterBottom>{chat.msg}</Typography>
                             </div>
                         ))}
                     </div>
