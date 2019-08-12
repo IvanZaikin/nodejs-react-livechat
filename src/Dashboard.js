@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     },
     flex: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'flex-start'
     },
     topicsWindow: {
         width: '30%',
