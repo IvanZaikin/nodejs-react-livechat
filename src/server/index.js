@@ -10,7 +10,9 @@ io.on('connection', function (socket) {
   console.log('User connected via socket');
   socket.on('chat message', function(msg) {
     console.log('message:', msg);
-  })
+    console.log('>>> broadcast message');
+    io.emit('chat message', msg);
+  });
 });
 
 server.listen(3001, function() {
